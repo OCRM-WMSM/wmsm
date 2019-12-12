@@ -28,7 +28,7 @@ public class SwaggerConfig {
 				.apiInfo(new ApiInfoBuilder().title("客户关系管理")
 						.description("客户关系管理Api").version("1.0").build())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.boc.wms.dem"))
+				.apis(RequestHandlerSelectors.basePackage("com.boc.wms"))
 				.paths(PathSelectors.any())
 				.build();
 	}
