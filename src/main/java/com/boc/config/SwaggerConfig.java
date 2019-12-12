@@ -1,5 +1,6 @@
 package com.boc.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  *
  */
 @Configuration
+@ConditionalOnProperty(prefix="swagger",value= {"enable"},havingValue="true") //启用或者禁止swagger配置，生产环境关闭
 @EnableSwagger2
 public class SwaggerConfig {
 	
