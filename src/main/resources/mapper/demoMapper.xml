@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指用户自定义的命名空间。 -->
+<mapper namespace="com.boc.wms.demo.mapper.DemoMapper">
+	
+	<select id="selectDemo" resultType="int">
+		select count(1) from sec_short_msg_gruop_mar_t
+	</select>
+	
+	
+	<insert id="addDemo" parameterType="Map" >
+		insert into hzwtest values(#{id},#{value})
+	</insert>
+	
+	
+	
+	
+</mapper>
