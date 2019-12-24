@@ -46,4 +46,4 @@ logging:
  config: classpath:logback-spring.xml
  path: D:\\log
 swagger:
-  enable: false
+  enable: true
