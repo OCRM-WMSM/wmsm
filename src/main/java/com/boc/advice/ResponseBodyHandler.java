@@ -10,7 +10,9 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import com.boc.api.ApiError;
 import com.boc.api.ApiResult;
+import com.boc.exception.BusException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -34,7 +36,10 @@ public class ResponseBodyHandler implements ResponseBodyAdvice<Object>{
 		if(path.equals("/configuration/ui")||path.equals("/swagger-resources")||path.equals("/v2/api-docs")) {
 			return arg0;
 		}
-		
+		//如果返回值为空
+		if(arg0==null) {
+			throw new BusException(ApiError.PARAMS_RETURN_NULL);
+		}
 		if(arg0 instanceof ApiResult) {
 			//不做处理
 		}else if(arg0 instanceof String) {

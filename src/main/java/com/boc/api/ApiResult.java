@@ -67,7 +67,10 @@ public class ApiResult {
 	}
 
 	public static ApiResult success(Object data) {
-		ApiResult apiResult = new ApiResult(ApiError.SUCCESS, data);
+		ApiResult apiResult = new ApiResult(ApiError.SUCCESS);
+		if(data!=null) {
+			apiResult.setData(data);
+		}
 		return apiResult;
 	}
 	
