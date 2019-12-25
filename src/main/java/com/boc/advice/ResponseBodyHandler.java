@@ -1,5 +1,7 @@
 package com.boc.advice;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
@@ -36,6 +38,7 @@ public class ResponseBodyHandler implements ResponseBodyAdvice<Object>{
 		if(path.equals("/configuration/ui")||path.equals("/swagger-resources")||path.equals("/v2/api-docs")) {
 			return arg0;
 		}
+		
 		//如果返回值为空
 		if(arg0==null) {
 			throw new BusException(ApiError.PARAMS_RETURN_NULL);
@@ -51,6 +54,16 @@ public class ResponseBodyHandler implements ResponseBodyAdvice<Object>{
 			} catch (JsonProcessingException e) {
 				//基本不会出现
 				logger.error("ResponseBodyHandler error",e);
+			}
+		}else if(arg0 instanceof Map) {
+			//map 有可能包含springboot自定义错误
+			Map<String,Object> map=(Map<String,Object>)arg0;
+			if(map.containsKey("status")&&map.containsKey("error")&&map.containsKey("timestamp")) {
+				ApiResult result=new ApiResult(String.valueOf(map.get("status")),String.valueOf(map.get("message")));
+				result.setData(map);
+				arg0=result;
+			}else {
+				arg0=ApiResult.success(arg0);
 			}
 		}else {
 			arg0=ApiResult.success(arg0);
