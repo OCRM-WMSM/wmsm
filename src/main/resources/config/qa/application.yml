@@ -51,6 +51,6 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 logging:
  config: classpath:logback-spring.xml
- path: D:\\log
+ path: /springboot/log
 swagger:
   enable: true
