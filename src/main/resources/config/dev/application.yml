@@ -14,9 +14,9 @@ spring:
     filters: stat,wall,logback
    db2:
     driverClassName: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@22.188.137.148:1521:oraWMS
+    url: jdbc:oracle:thin:@22.188.20.71:1521:orau11g
     username: WMSM
-    password: WMSM
+    password: wmsm#ocrm
     initialSize: 5
     minIdle: 5
     maxActive: 20
@@ -35,7 +35,7 @@ spring:
 mybatis-plus:
   mapper-locations: classpath:/mapper/*.xml
   #实体扫描，多个package用逗号或者分号分隔com.boc.wms.entity
-  type-aliases-package: com.boc.wms.entity,com.boc.wms.demo.entity
+  #type-aliases-package: com.boc.wms.entity,com.boc.wms.demo.entity
   global-config:
     db-config:
       #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
