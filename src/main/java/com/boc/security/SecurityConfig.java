@@ -20,7 +20,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -28,11 +27,13 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.util.DigestUtils;
 
 import com.boc.api.ApiError;
 import com.boc.api.ApiResult;
 import com.boc.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 /**
  * 权限配置
@@ -47,6 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private JwtAuthFilter  jwtAuthFilter;
+	@Autowired
+	private CustomerUserDetailService  customerUserDetailService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -77,13 +80,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						AuthUser user= (AuthUser) arg2.getPrincipal();
 						//生成token返回
 						Map<String,Object> claims=new HashMap<>();
-						//暂时放用户名进去
+						//放用户名和角色进去
 						claims.put("username", user.getUsername());
+						claims.put("role", user.getAuthorities());
 						String token=JwtUtil.generateToken(claims);
 						ApiResult a = new ApiResult("0", "登录成功");
-						//返回数据
+						//返回数据,token和user
 						Map<String,Object> data=new HashMap<>();
 						data.put("token", token);
+						data.put("user", user.getEmployee());
 						a.setData(data);
 						arg1.setContentType("application/json,charset=utf-8");
 						arg1.getWriter().write(mapper.writeValueAsString(a));
@@ -130,24 +135,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		//auth.userDetailsService(customerUserDetailService()).passwordEncoder(new BCryptPasswordEncoder());
-		auth.userDetailsService(customerUserDetailService()).passwordEncoder(new BCryptPasswordEncoder());
+		//auth.userDetailsService(customerUserDetailService).passwordEncoder(new BCryptPasswordEncoder());
+		auth.userDetailsService(customerUserDetailService).passwordEncoder(passwordEncoder());
 	}
 	
-
+    
+	/**
+	 * md5方式验证
+	 * @return
+	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		return new PasswordEncoder() {
+			@Override
+			public String encode(CharSequence rawPassword) {
+				return rawPassword.toString();
+			}
+			@Override
+			public boolean matches(CharSequence rawPassword, String encodedPassword) {
+				//String rp= DigestUtils.md5DigestAsHex(rawPassword.toString().getBytes());
+				//前端传的密码rawPassword是md5方式，不需要重新加密
+				return ((String)rawPassword).equalsIgnoreCase(encodedPassword);
+			}
+			
+			
+		};
 	}
 
-	@Bean
-	public CustomerUserDetailService customerUserDetailService() {
-		return new CustomerUserDetailService();
-	}
 	
 	public static void main(String[] args) {
-		BCryptPasswordEncoder b=new BCryptPasswordEncoder();
-		System.out.println(b.encode("666666"));
+		System.out.println(DigestUtils.md5DigestAsHex("666666".getBytes()));
 	}
 
 }

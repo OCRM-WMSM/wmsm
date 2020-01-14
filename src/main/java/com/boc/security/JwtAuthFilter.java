@@ -1,6 +1,7 @@
 package com.boc.security;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.FilterChain;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
+/**
+ * 每次请求都加上security权限验证
+ * @author st-wg-hzw14176
+ *
+ */
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
@@ -49,10 +56,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
 		if (tokenParse != null) {
 			String username=(String)tokenParse.get("username");
+			List<GrantedAuthority> roles=(List<GrantedAuthority>)tokenParse.get("role");
 			//如果jwt解析出账号信息，说明是合法用户，设置认证信息，认证通过
 			if(username!=null&&SecurityContextHolder.getContext().getAuthentication()==null) {
-				//TODO 加权限
-				UsernamePasswordAuthenticationToken auth=new UsernamePasswordAuthenticationToken(username, null, null);
+				UsernamePasswordAuthenticationToken auth=new UsernamePasswordAuthenticationToken(username, null, roles);
 				auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				//设置认证信息
 				SecurityContextHolder.getContext().setAuthentication(auth);

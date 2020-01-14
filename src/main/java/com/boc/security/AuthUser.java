@@ -1,10 +1,14 @@
 package com.boc.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.boc.wms.user.vo.Employee;
 
 public class AuthUser implements UserDetails{
 	
@@ -18,6 +22,8 @@ public class AuthUser implements UserDetails{
 	private String password;
 	
 	private List<GrantedAuthority> list;
+	
+	private Employee employee;
     
 	
 	
@@ -26,6 +32,17 @@ public class AuthUser implements UserDetails{
 		this.username = username;
 		this.password = password;
 		this.list = list;
+	}
+	
+	public AuthUser(Employee employee) {
+		super();
+		this.username = employee.getName();
+		this.password = employee.getEmpPwd();
+		//目前一个用户只有一个角色
+		List<GrantedAuthority> l=new ArrayList<GrantedAuthority>();
+		l.add(new SimpleGrantedAuthority(employee.getEmpRole()));//需要这样加前缀
+		this.list = l;
+		this.employee=employee;
 	}
 
 	@Override
@@ -69,5 +86,15 @@ public class AuthUser implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+	
+	
 
 }
