@@ -5,7 +5,7 @@ spring:
   druid:
    db1:
     driverClassName: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@22.188.131.50:1521:wmsdb1
+    url: jdbc:oracle:thin:@22.188.20.71:1521:orau11g
     username: WMSM
     password: WMSM
     initialSize: 5
