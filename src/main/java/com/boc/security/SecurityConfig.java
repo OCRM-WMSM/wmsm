@@ -1,7 +1,9 @@
 package com.boc.security;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -20,6 +22,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -28,6 +31,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
 
 import com.boc.api.ApiError;
 import com.boc.api.ApiResult;
@@ -82,7 +86,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						Map<String,Object> claims=new HashMap<>();
 						//放用户名和角色进去
 						claims.put("username", user.getUsername());
-						claims.put("role", user.getAuthorities());
+						List<GrantedAuthority> list=(List<GrantedAuthority>) user.getAuthorities();
+						List<String> l=new ArrayList<String>();
+						for(GrantedAuthority g:list) {
+							String role=g.getAuthority();
+							l.add(role);
+						}
+						claims.put("roles",l);
 						String token=JwtUtil.generateToken(claims);
 						ApiResult a = new ApiResult("0", "登录成功");
 						//返回数据,token和user

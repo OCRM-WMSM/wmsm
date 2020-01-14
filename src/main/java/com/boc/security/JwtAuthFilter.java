@@ -1,6 +1,7 @@
 package com.boc.security;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -55,8 +57,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 		}
 
 		if (tokenParse != null) {
-			String username=(String)tokenParse.get("username");
-			List<GrantedAuthority> roles=(List<GrantedAuthority>)tokenParse.get("role");
+			String username=tokenParse.get("username").toString();
+			List<String> roleList=(List<String>) tokenParse.get("roles");
+			List<GrantedAuthority> roles=new ArrayList<>();
+			for(String role:roleList) {
+				roles.add(new SimpleGrantedAuthority(role));
+			}
 			//如果jwt解析出账号信息，说明是合法用户，设置认证信息，认证通过
 			if(username!=null&&SecurityContextHolder.getContext().getAuthentication()==null) {
 				UsernamePasswordAuthenticationToken auth=new UsernamePasswordAuthenticationToken(username, null, roles);

@@ -52,6 +52,71 @@
 		       where c_employeeid=#{username}
 	</select>
 	
+	<update id="updateUserById" parameterType="com.boc.wms.user.vo.Employee" >
+		update  EHR_INF_EMPLOYEE 
+		<set>
+		  <if test="name != null and name !=''">
+		    c_name=#{name},
+		  </if>
+		  <if test="gender != null and gender !=''">
+		    c_gender=#{gender},
+		  </if>
+		  <if test="jobId != null and jobId !=''">
+		    c_jobid=#{jobId},
+		  </if>
+		  <if test="jobName != null and jobName !=''">
+		    c_jobname=#{jobName},
+		  </if>
+		  <if test="parentCode != null and parentCode !=''">
+		    c_parentcode=#{parentCode},
+		  </if>
+		  <if test="parentName != null and parentName !=''">
+		    c_parentname=#{parentName},
+		  </if>
+		  <if test="hireDate != null and hireDate !=''">
+		    c_hiredate=#{hireDate},
+		  </if>
+		  <if test="orgCode != null and orgCode !=''">
+		    c_orgcode=#{orgCode},
+		  </if>
+		  <if test="orgName != null and orgName !=''">
+		    c_orgname=#{orgName},
+		  </if>
+		  <if test="unitCode != null and unitCode !=''">
+		    c_unitcode=#{unitCode},
+		  </if>
+		  <if test="unitName != null and unitName !=''">
+		    c_unitname=#{unitName},
+		  </if>
+		  <if test="employeeType != null and employeeType !=''">
+		    c_employeetype=#{employeeType},
+		  </if>
+		  <if test="employeeStatus != null and employeeStatus !=''">
+		    c_employeestatus=#{employeeStatus},
+		  </if>
+		  <if test="empRole != null and empRole !=''">
+		    last_maint_date=#{empRole},
+		  </if>
+		  <if test="lastMaintDate != null and lastMaintDate !=''">
+		    C_EMP_ROLE=#{lastMaintDate},
+		  </if>
+		  <if test="empPwd != null and empPwd !=''">
+		    c_emp_pwd=#{empPwd},
+		  </if>
+		  <if test="accStatus != null and accStatus !=''">
+		    c_acc_status=#{accStatus},
+		  </if>
+		  <if test="onlineFlag != null and onlineFlag !=''">
+		    c_online_flag=#{onlineFlag},
+		  </if>
+		  <if test="annulReason != null and annulReason !=''">
+		    c_annul_reason=#{annulReason},
+		  </if>
+		
+		</set>   
+		 where c_employeeid=#{employeeId}
+	</update>
+	
 	
 	
 	
