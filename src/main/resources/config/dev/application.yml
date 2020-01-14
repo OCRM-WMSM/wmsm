@@ -7,7 +7,7 @@ spring:
     driverClassName: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@22.188.20.71:1521:orau11g
     username: WMSM
-    password: WMSM
+    password: wmsm#ocrm
     initialSize: 5
     minIdle: 5
     maxActive: 20
