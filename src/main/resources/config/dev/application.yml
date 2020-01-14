@@ -48,7 +48,7 @@ mybatis-plus:
     cache-enabled: true
     call-setters-on-nulls: true
     #开发环境使用sql打印，生产环境不使用，注掉下面一行
-    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 logging:
  config: classpath:logback-spring.xml
  path: D:\\log

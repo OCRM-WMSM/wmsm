@@ -3,6 +3,8 @@ package com.boc.wms.user.controller;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.DigestUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,14 +53,17 @@ public class UserController {
 		if(e==null) {
 			throw new BusException("-3", "当前用户不存在！");
 		}
-		if(!oldPassword.equals(e.getEmpPwd())) {
+		//验证密码是否正确，数据库存得密码是对用户密码md5后在进行BCrypt加密的
+		BCryptPasswordEncoder bc= new BCryptPasswordEncoder();
+		if(!BCrypt.checkpw(DigestUtils.md5DigestAsHex(oldPassword.getBytes()), e.getEmpPwd())) {
 			throw new BusException("-4", "旧密码不正确！");
 		}
 		e=new Employee();
 		e.setEmployeeId(employeeId);
-		e.setEmpPwd(DigestUtils.md5DigestAsHex(newPassword.toString().getBytes()));
+		e.setEmpPwd(bc.encode(newPassword));
 		userService.updateUserById(e);
 		return ApiResult.success();
 	}
+	
 
 }

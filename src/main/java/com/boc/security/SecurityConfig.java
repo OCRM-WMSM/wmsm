@@ -23,6 +23,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -31,7 +32,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.util.DigestUtils;
-import org.springframework.util.StringUtils;
 
 import com.boc.api.ApiError;
 import com.boc.api.ApiResult;
@@ -151,12 +151,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
     
 	/**
-	 * md5方式验证
+	 * 
 	 * @return
 	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new PasswordEncoder() {
+		return new BCryptPasswordEncoder();
+		/*return new PasswordEncoder() {
 			@Override
 			public String encode(CharSequence rawPassword) {
 				return rawPassword.toString();
@@ -169,11 +170,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			}
 			
 			
-		};
+		};*/
 	}
 
 	
 	public static void main(String[] args) {
+		BCryptPasswordEncoder b= new BCryptPasswordEncoder();
+		System.out.println(b.encode("f379eaf3c831b04de153469d1bec345e"));
 		System.out.println(DigestUtils.md5DigestAsHex("666666".getBytes()));
 	}
 
