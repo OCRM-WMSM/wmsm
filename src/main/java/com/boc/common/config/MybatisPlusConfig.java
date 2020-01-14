@@ -31,7 +31,7 @@ import com.boc.common.multiple.MultipleDataSource;
  *
  */
 @Configuration
-@MapperScan({"com.boc.wms.demo.mapper","com.boc.wms.mapper"})
+//@MapperScan({"com.boc.wms.demo.mapper","com.boc.wms.mapper"})
 public class MybatisPlusConfig {
 
 	@Value("${mybatis-plus.mapper-locations}")
