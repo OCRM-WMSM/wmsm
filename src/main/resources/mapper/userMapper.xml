@@ -4,7 +4,7 @@
 <!-- namespace指用户自定义的命名空间。 -->
 <mapper namespace="com.boc.wms.user.mapper.UserMapper">
 	
-	<resultMap id="EmployeeMap" type="com.boc.wms.user.vo.Employee">
+	<resultMap id="EmployeeMap" type="com.boc.wms.user.domain.Employee">
 	  <id property="employeeId" column="c_employeeid"/>
 	  <result property="name" column="c_name"/>
 	  <result property="gender" column="c_gender"/>
@@ -49,7 +49,7 @@
 		       where c_employeeid=#{username}
 	</select>
 	
-	<update id="updateUserById" parameterType="com.boc.wms.user.vo.Employee" >
+	<update id="updateUserById" parameterType="com.boc.wms.user.domain.Employee" >
 		update  EHR_INF_EMPLOYEE 
 		<set>
 		  <if test="name != null and name !=''">
