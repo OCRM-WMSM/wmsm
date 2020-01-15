@@ -1,6 +1,7 @@
 package com.boc.wms.user.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.boc.wms.user.vo.Employee;
 
@@ -20,6 +21,14 @@ public interface UserMapper {
 	 * @param employee
 	 * @return
 	 */
-	public Employee updateUserById(Employee employee);
+	public void updateUserById(Employee employee);
+
+	/**
+	 * 重置用户密码
+	 * 
+	 * @param userId
+	 * @param password
+	 */
+	public void resetUserPwdById(@Param("employeeId") String userId, @Param("password") String password);
 
 }

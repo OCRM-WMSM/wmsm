@@ -40,7 +40,7 @@ public class AuthUser implements UserDetails{
 		this.password = employee.getEmpPwd();
 		//目前一个用户只有一个角色
 		List<GrantedAuthority> l=new ArrayList<GrantedAuthority>();
-		l.add(new SimpleGrantedAuthority(employee.getEmpRole()));//需要这样加前缀
+		l.add(new SimpleGrantedAuthority("01"));//需要这样加前缀
 		this.list = l;
 		this.employee=employee;
 	}

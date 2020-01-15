@@ -22,7 +22,7 @@ public class Employee {
 	private String unitName;// 所属组织机构名称
 	private String employeeType;// 用工形式
 	private String employeeStatus;// 员工状态
-	private String empRole;// 角色 01 管理人员 02营销人员 每个人只有一个角色
+	//private String empRole;// 角色 01 管理人员 02营销人员 每个人只有一个角色
 	private String lastMaintDate;// 更新时间
 	private String empPwd;// 登陆密码 md5加密
 	private String accStatus;// 账户状态 0注销 1正常
@@ -147,14 +147,6 @@ public class Employee {
 
 	public void setLastMaintDate(String lastMaintDate) {
 		this.lastMaintDate = lastMaintDate;
-	}
-
-	public String getEmpRole() {
-		return empRole;
-	}
-
-	public void setEmpRole(String empRole) {
-		this.empRole = empRole;
 	}
 
 	public String getEmpPwd() {

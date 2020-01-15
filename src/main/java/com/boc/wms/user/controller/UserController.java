@@ -43,27 +43,35 @@ public class UserController {
 	@PostMapping("/updatePwd")
 	public ApiResult updatePwd(@NotEmpty String employeeId, @NotEmpty String oldPassword, @NotEmpty String newPassword,
 			@NotEmpty String checkPassword) {
-		if(oldPassword.equals(newPassword)) {
+		if (oldPassword.equals(newPassword)) {
 			throw new BusException("-1", "新密码不能和旧密码相同！");
 		}
-		if(!newPassword.equals(checkPassword)) {
+		if (!newPassword.equals(checkPassword)) {
 			throw new BusException("-2", "新密码和确认密码不相同！");
 		}
-		Employee e=userService.findUserById(employeeId);
-		if(e==null) {
+		Employee e = userService.findUserById(employeeId);
+		if (e == null) {
 			throw new BusException("-3", "当前用户不存在！");
 		}
-		//验证密码是否正确，数据库存得密码是对用户密码md5后在进行BCrypt加密的
-		BCryptPasswordEncoder bc= new BCryptPasswordEncoder();
-		if(!BCrypt.checkpw(DigestUtils.md5DigestAsHex(oldPassword.getBytes()), e.getEmpPwd())) {
+		// 验证密码是否正确，数据库存得密码是对用户密码md5后在进行BCrypt加密的
+		BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+		if (!BCrypt.checkpw(DigestUtils.md5DigestAsHex(oldPassword.getBytes()), e.getEmpPwd())) {
 			throw new BusException("-4", "旧密码不正确！");
 		}
-		e=new Employee();
+		e = new Employee();
 		e.setEmployeeId(employeeId);
-		e.setEmpPwd(bc.encode(newPassword));
+		e.setEmpPwd(bc.encode(DigestUtils.md5DigestAsHex(newPassword.getBytes())));
 		userService.updateUserById(e);
 		return ApiResult.success();
 	}
-	
+
+	@ApiOperation("重置用户密码")
+	@ApiImplicitParams({ @ApiImplicitParam(name = "employeeId", value = "用户编号", required = true),
+			@ApiImplicitParam(name = "password", value = "密码", required = true) })
+	@PostMapping("/resetPwd")
+	public ApiResult resetPwd(@NotEmpty String employeeId, @NotEmpty String password) {
+		userService.resetUserPwd(employeeId, password);
+		return ApiResult.success();
+	}
 
 }

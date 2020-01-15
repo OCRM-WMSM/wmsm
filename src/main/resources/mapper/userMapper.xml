@@ -20,7 +20,6 @@
 	  <result property="employeeType" column="c_employeetype"/>
 	  <result property="employeeStatus" column="c_employeestatus"/>
 	  <result property="lastMaintDate" column="last_maint_date"/>
-	  <result property="empRole" column="C_EMP_ROLE"/>
 	  <result property="empPwd" column="c_emp_pwd"/>
 	  <result property="accStatus" column="c_acc_status"/>
 	  <result property="onlineFlag" column="c_online_flag"/>
@@ -42,13 +41,11 @@
 				c_employeetype   ,
 				c_employeestatus ,
 				last_maint_date  ,
-				C_EMP_ROLE,
 				c_emp_pwd,
 				c_acc_status,
 				c_online_flag,
 				c_annul_reason
 		       from EHR_INF_EMPLOYEE
-		       
 		       where c_employeeid=#{username}
 	</select>
 	
@@ -94,11 +91,8 @@
 		  <if test="employeeStatus != null and employeeStatus !=''">
 		    c_employeestatus=#{employeeStatus},
 		  </if>
-		  <if test="empRole != null and empRole !=''">
-		    last_maint_date=#{empRole},
-		  </if>
 		  <if test="lastMaintDate != null and lastMaintDate !=''">
-		    C_EMP_ROLE=#{lastMaintDate},
+		    last_maint_date=#{lastMaintDate},
 		  </if>
 		  <if test="empPwd != null and empPwd !=''">
 		    c_emp_pwd=#{empPwd},
@@ -117,9 +111,10 @@
 		 where c_employeeid=#{employeeId}
 	</update>
 	
+	<update id="resetUserPwdById">
+	     update  EHR_INF_EMPLOYEE  set c_emp_pwd=#{password} where c_employeeid=#{employeeId}
 	
-	
-	
+	</update>
 	
 	
 </mapper>

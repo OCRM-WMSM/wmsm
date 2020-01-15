@@ -24,4 +24,14 @@ public interface UserService {
 	 */
 	public void updateUserById(Employee employee);
 
+	/**
+	 * 密码重置
+	 * 
+	 * @param userId
+	 *            用户编号
+	 * @param password
+	 *            密码
+	 */
+	public void resetUserPwd(String userId, String password);
+
 }
