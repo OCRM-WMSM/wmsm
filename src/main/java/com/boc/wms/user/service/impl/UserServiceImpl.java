@@ -12,9 +12,9 @@ import com.boc.api.ApiError;
 import com.boc.common.annotation.DataSource;
 import com.boc.common.enums.DataSourceEnum;
 import com.boc.exception.BusException;
+import com.boc.wms.user.domain.Employee;
 import com.boc.wms.user.mapper.UserMapper;
 import com.boc.wms.user.service.UserService;
-import com.boc.wms.user.vo.Employee;
 
 @Transactional
 @Service

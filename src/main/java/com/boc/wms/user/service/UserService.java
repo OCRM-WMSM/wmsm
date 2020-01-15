@@ -1,6 +1,6 @@
 package com.boc.wms.user.service;
 
-import com.boc.wms.user.vo.Employee;
+import com.boc.wms.user.domain.Employee;
 
 /**
  * 用户管理服务接口

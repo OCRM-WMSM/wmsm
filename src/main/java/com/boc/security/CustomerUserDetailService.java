@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.boc.common.annotation.DataSource;
 import com.boc.common.enums.DataSourceEnum;
+import com.boc.wms.user.domain.Employee;
 import com.boc.wms.user.mapper.UserMapper;
-import com.boc.wms.user.vo.Employee;
 
 /**
  * 用户登陆后security调用此接口查询用户进行密码验证

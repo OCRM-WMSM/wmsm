@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.boc.api.ApiResult;
 import com.boc.exception.BusException;
+import com.boc.wms.user.domain.Employee;
 import com.boc.wms.user.service.UserService;
-import com.boc.wms.user.vo.Employee;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

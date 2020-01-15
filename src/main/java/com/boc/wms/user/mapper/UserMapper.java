@@ -3,7 +3,7 @@ package com.boc.wms.user.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.boc.wms.user.vo.Employee;
+import com.boc.wms.user.domain.Employee;
 
 @Mapper
 public interface UserMapper {

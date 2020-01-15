@@ -1,4 +1,4 @@
-package com.boc.wms.user.vo;
+package com.boc.wms.user.domain;
 
 
 /**
