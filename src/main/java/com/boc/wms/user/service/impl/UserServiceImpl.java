@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
-import com.boc.api.ApiError;
+import com.boc.api.ApiResultCode;
 import com.boc.common.annotation.DataSource;
 import com.boc.common.enums.DataSourceEnum;
 import com.boc.exception.BusException;
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 			return userMapper.findUserById(userId);
 		} catch (Exception e) {
 			logger.error("",e);
-			throw new BusException(ApiError.DATABASE_ERROR);
+			throw new BusException(ApiResultCode.DATABASE_ERROR);
 		}
 
 	}
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 			userMapper.updateUserById(employee);
 		} catch (Exception e) {
 			logger.error("",e);
-			throw new BusException(ApiError.DATABASE_ERROR);
+			throw new BusException(ApiResultCode.DATABASE_ERROR);
 		}
 
 	}
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 			userMapper.resetUserPwdById(userId, bc.encode(DigestUtils.md5DigestAsHex(password.getBytes())));
 		} catch (Exception e) {
 			logger.error("",e);
-			throw new BusException(ApiError.DATABASE_ERROR);
+			throw new BusException(ApiResultCode.DATABASE_ERROR);
 		}
 		
 	}

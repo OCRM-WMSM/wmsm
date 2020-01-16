@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.boc.api.ApiError;
+import com.boc.api.ApiResultCode;
 import com.boc.api.ApiResult;
 import com.boc.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,12 +44,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 		} catch (Exception e) {
 			if (e instanceof ExpiredJwtException) {
 				// token 过期
-				ApiResult a = new ApiResult(ApiError.TOKEN_EXPIRE);
+				ApiResult a = new ApiResult(ApiResultCode.TOKEN_EXPIRE);
 				response.setContentType("application/json,charset=utf-8");
 				response.getWriter().write(mapper.writeValueAsString(a));
 			} else {
 				// token 验证不通过
-				ApiResult a = new ApiResult(ApiError.TOKEN_ERROR);
+				ApiResult a = new ApiResult(ApiResultCode.TOKEN_ERROR);
 				response.setContentType("application/json,charset=utf-8");
 				response.getWriter().write(mapper.writeValueAsString(a));
 			}

@@ -5,7 +5,7 @@ import com.boc.wms.menu.domain.db.MenuDb;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-//@Mapper
+@Mapper
 //@Repository
 public interface MenuMapper extends BaseMapper<MenuDb> {
 }

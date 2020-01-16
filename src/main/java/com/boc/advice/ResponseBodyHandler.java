@@ -12,7 +12,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import com.boc.api.ApiError;
+import com.boc.api.ApiResultCode;
 import com.boc.api.ApiResult;
 import com.boc.exception.BusException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -41,7 +41,7 @@ public class ResponseBodyHandler implements ResponseBodyAdvice<Object>{
 		
 		//如果返回值为空
 		if(arg0==null) {
-			throw new BusException(ApiError.PARAMS_RETURN_NULL);
+			throw new BusException(ApiResultCode.PARAMS_RETURN_NULL);
 		}
 		if(arg0 instanceof ApiResult) {
 			//不做处理

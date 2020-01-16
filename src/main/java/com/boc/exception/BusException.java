@@ -1,6 +1,6 @@
 package com.boc.exception;
 
-import com.boc.api.ApiError;
+import com.boc.api.ApiResultCode;
 
 public class BusException extends RuntimeException {
 
@@ -15,7 +15,7 @@ public class BusException extends RuntimeException {
 		this.code = code;
 	}
 
-	public BusException(ApiError apiError) {
+	public BusException(ApiResultCode apiError) {
 		super("【code:" + apiError.getCode() + "】" + apiError.getMessage());
 		this.code = apiError.getCode();
 	}

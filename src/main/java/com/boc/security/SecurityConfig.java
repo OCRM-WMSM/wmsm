@@ -33,7 +33,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.util.DigestUtils;
 
-import com.boc.api.ApiError;
+import com.boc.api.ApiResultCode;
 import com.boc.api.ApiResult;
 import com.boc.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -68,10 +68,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 							AuthenticationException arg2) throws IOException, ServletException {
 						arg1.setContentType("application/json,charset=utf-8");
 						// 未登录处理
-						ApiResult a = new ApiResult(ApiError.LOGIN_NO);
+						ApiResult a = new ApiResult(ApiResultCode.LOGIN_NO);
 						arg1.getWriter().write(mapper.writeValueAsString(a));
 					}
-				}).and().authorizeRequests().antMatchers("/demo/*").permitAll()
+				}).and().authorizeRequests().antMatchers("/demo/*","/config/**").permitAll()
 				.antMatchers("/favicon.ico", "/swagger**/**", "/*/api-docs", "/webjars/**").permitAll() // swagger允许访问
 				.anyRequest().authenticated()
 
@@ -110,7 +110,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 							AuthenticationException arg2) throws IOException, ServletException {
 						arg1.setContentType("application/json,charset=utf-8");
 						// 登录失败处理
-						ApiResult a = new ApiResult(ApiError.LOGIN_FAIL);
+						ApiResult a = new ApiResult(ApiResultCode.LOGIN_FAIL);
 						arg1.getWriter().write(mapper.writeValueAsString(a));
 					}
 				}).loginProcessingUrl("/login").usernameParameter("username").passwordParameter("password")
@@ -133,7 +133,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			public void handle(HttpServletRequest arg0, HttpServletResponse arg1, AccessDeniedException arg2)
 					throws IOException, ServletException {
 				// 登录失败处理
-				ApiResult a = new ApiResult(ApiError.AUTH_NO);
+				ApiResult a = new ApiResult(ApiResultCode.AUTH_NO);
 				arg1.getWriter().write(mapper.writeValueAsString(a));
 
 			}

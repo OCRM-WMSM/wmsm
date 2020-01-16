@@ -18,12 +18,12 @@ public class ApiResult {
 
 	}
 
-	public ApiResult(ApiError apiError) {
+	public ApiResult(ApiResultCode apiError) {
 		this.code = apiError.getCode();
 		this.msg = apiError.getMessage();
 	}
 	
-	public ApiResult(ApiError apiError,Object data) {
+	public ApiResult(ApiResultCode apiError, Object data) {
 		this.code = apiError.getCode();
 		this.msg = apiError.getMessage();
 		this.data=data;
@@ -67,7 +67,7 @@ public class ApiResult {
 	}
 
 	public static ApiResult success(Object data) {
-		ApiResult apiResult = new ApiResult(ApiError.SUCCESS);
+		ApiResult apiResult = new ApiResult(ApiResultCode.SUCCESS);
 		if(data!=null) {
 			apiResult.setData(data);
 		}
@@ -75,7 +75,7 @@ public class ApiResult {
 	}
 	
 	public static ApiResult success() {
-		ApiResult apiResult = new ApiResult(ApiError.SUCCESS);
+		ApiResult apiResult = new ApiResult(ApiResultCode.SUCCESS);
 		return apiResult;
 	}
 
@@ -84,7 +84,7 @@ public class ApiResult {
 		return apiResult;
 	}
 	
-	public static ApiResult fail(ApiError apiError) {
+	public static ApiResult fail(ApiResultCode apiError) {
 		ApiResult apiResult = new ApiResult(apiError);
 		return apiResult;
 	}
