@@ -1,9 +1,12 @@
 package com.boc.wms.menu.domain.db;
 
-import io.swagger.models.auth.In;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.util.Date;
 
+
+@TableName("ocrm_role_menu")
 public class RoleMenuDb {
     //角色ID
     private Integer roleId;
@@ -12,6 +15,7 @@ public class RoleMenuDb {
     private Integer menuId;
 
     //有效性，1-有效，0-无效
+    @TableLogic(value = "1")
     private Integer valid;
 
     //更新人的employeeId

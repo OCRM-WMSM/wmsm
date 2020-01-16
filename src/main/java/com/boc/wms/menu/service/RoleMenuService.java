@@ -11,5 +11,5 @@ public interface RoleMenuService {
      * @param roleId
      * @return
      */
-    List<RoleMenuAggre> listRoleMenuByRoleId(Integer roleId);
+    RoleMenuAggre getRoleMenuByRoleId(Integer roleId);
 }

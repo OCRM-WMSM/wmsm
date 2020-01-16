@@ -1,27 +1,28 @@
 package com.boc.wms.menu.dao;
 
 import com.boc.mapper.MenuMapper;
+import com.boc.wms.menu.domain.convertor.MenuConvertor;
 import com.boc.wms.menu.domain.db.MenuDb;
 import com.boc.wms.menu.domain.entity.MenuEntity;
-import com.google.common.collect.Lists;
-import io.jsonwebtoken.lang.Collections;
+import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 
+@Repository
 public class MenuDao {
 
     @Resource
     private MenuMapper menuMapper;
 
     public List<MenuEntity> listMenuEntityByIdList(List<Integer> menuIdList) {
-        if(Collections.isEmpty(menuIdList)){
-            return Lists.newArrayList();
+        if(CollectionUtils.isEmpty(menuIdList)){
+            return Collections.EMPTY_LIST;
         }
         List<MenuDb> menuDbList = menuMapper.selectBatchIds(menuIdList);
-
-        return Lists.newArrayList();
-
+        return MenuConvertor.INSTANCE.menuDbList2EntityList(menuDbList);
     }
 
 }

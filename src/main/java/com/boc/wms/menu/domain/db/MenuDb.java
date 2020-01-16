@@ -1,6 +1,7 @@
 package com.boc.wms.menu.domain.db;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.util.Date;
@@ -15,6 +16,7 @@ public class MenuDb {
     //菜单对应的URL
     private String menuUrl;
     //菜单的有效性，1-有效，0-无效
+    @TableLogic(value = "1")
     private Integer valid;
     //创建人employeeId
     private Integer createEmp;
