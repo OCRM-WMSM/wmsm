@@ -27,6 +27,9 @@ public class BusException extends RuntimeException {
 	public BusException(Throwable e) {
 		super(e);
 	}
+	public BusException(String message,Throwable e) {
+		super(message,e);
+	}
 
 	public String getCode() {
 		return code;
