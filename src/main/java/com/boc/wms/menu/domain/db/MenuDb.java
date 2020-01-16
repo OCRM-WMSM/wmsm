@@ -1,9 +1,14 @@
 package com.boc.wms.menu.domain.db;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.util.Date;
 
+@TableName("ocrm_menu")
 public class MenuDb {
     //菜单Id
+    @TableId(value = "menu_id")
     private Integer menuId;
     //菜单名称
     private String menuName;

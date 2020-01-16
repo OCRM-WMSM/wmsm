@@ -26,7 +26,7 @@ public class LoginController {
 	@RequestMapping("/loginPage")
 	public ApiResult loginPage() {
 
-		List<RoleMenuAggre> roleMenuAggreList = roleMenuService.listRoleMenuByRoleId(11222);
+//		List<RoleMenuAggre> roleMenuAggreList = roleMenuService.listRoleMenuByRoleId(11222);
 		return new ApiResult(ApiError.LOGIN_NO);
 	}
     
