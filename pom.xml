@@ -133,7 +133,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            <version>2.0.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -151,7 +150,12 @@
             <artifactId>mapstruct</artifactId>
             <version>${org.mapstruct.version}</version>
         </dependency>
-    </dependencies>
+        <dependency>
+  			<groupId>commons-net</groupId>
+  			<artifactId>commons-net</artifactId>
+  			<version>3.6</version>
+			</dependency>
+    	</dependencies>
 
     <profiles>
         <profile>

@@ -38,7 +38,6 @@ import com.boc.api.ApiResult;
 import com.boc.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 /**
  * 权限配置
  * 
@@ -49,17 +48,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 开启 security注解可以在controller上配置权限
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
-	private JwtAuthFilter  jwtAuthFilter;
+	private JwtAuthFilter jwtAuthFilter;
 	@Autowired
-	private CustomerUserDetailService  customerUserDetailService;
+	private CustomerUserDetailService customerUserDetailService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		http.csrf().disable()// 跨域伪造请求限制
-		         .cors().and()// 开启跨域共享
+				.cors().and()// 开启跨域共享
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()// 去掉session
 				.httpBasic().authenticationEntryPoint(new AuthenticationEntryPoint() {
 
@@ -71,8 +70,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						ApiResult a = new ApiResult(ApiResultCode.LOGIN_NO);
 						arg1.getWriter().write(mapper.writeValueAsString(a));
 					}
-				}).and().authorizeRequests().antMatchers("/demo/*","/config/**").permitAll()
+				}).and().authorizeRequests().antMatchers("/demo/*", "/config/**").permitAll()
 				.antMatchers("/favicon.ico", "/swagger**/**", "/*/api-docs", "/webjars/**").permitAll() // swagger允许访问
+				.antMatchers("/blacklist/downloadBlackListTmp").permitAll() // 黑名单模板允许访问
 				.anyRequest().authenticated()
 
 				.and().formLogin()// 登录处理
@@ -81,22 +81,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					public void onAuthenticationSuccess(HttpServletRequest arg0, HttpServletResponse arg1,
 							Authentication arg2) throws IOException, ServletException {
 						// 登录成功处理
-						AuthUser user= (AuthUser) arg2.getPrincipal();
-						//生成token返回
-						Map<String,Object> claims=new HashMap<>();
-						//放用户名和角色进去
+						AuthUser user = (AuthUser) arg2.getPrincipal();
+						// 生成token返回
+						Map<String, Object> claims = new HashMap<>();
+						// 放用户名和角色进去
 						claims.put("username", user.getUsername());
-						List<GrantedAuthority> list=(List<GrantedAuthority>) user.getAuthorities();
-						List<String> l=new ArrayList<String>();
-						for(GrantedAuthority g:list) {
-							String role=g.getAuthority();
+						List<GrantedAuthority> list = (List<GrantedAuthority>) user.getAuthorities();
+						List<String> l = new ArrayList<String>();
+						for (GrantedAuthority g : list) {
+							String role = g.getAuthority();
 							l.add(role);
 						}
-						claims.put("roles",l);
-						String token=JwtUtil.generateToken(claims);
+						claims.put("roles", l);
+						String token = JwtUtil.generateToken(claims);
 						ApiResult a = new ApiResult("0", "登录成功");
-						//返回数据,token和user
-						Map<String,Object> data=new HashMap<>();
+						// 返回数据,token和user
+						Map<String, Object> data = new HashMap<>();
 						data.put("token", token);
 						data.put("user", user.getEmployee());
 						a.setData(data);
@@ -138,18 +138,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 			}
 		});
-		//加入jwt认证
+		// 加入jwt认证
 		http.addFilterAfter(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		//auth.userDetailsService(customerUserDetailService).passwordEncoder(new BCryptPasswordEncoder());
+		// auth.userDetailsService(customerUserDetailService).passwordEncoder(new
+		// BCryptPasswordEncoder());
 		auth.userDetailsService(customerUserDetailService).passwordEncoder(passwordEncoder());
 	}
-	
-    
+
 	/**
 	 * 
 	 * @return
@@ -157,25 +157,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-		/*return new PasswordEncoder() {
-			@Override
-			public String encode(CharSequence rawPassword) {
-				return rawPassword.toString();
-			}
-			@Override
-			public boolean matches(CharSequence rawPassword, String encodedPassword) {
-				//String rp= DigestUtils.md5DigestAsHex(rawPassword.toString().getBytes());
-				//前端传的密码rawPassword是md5方式，不需要重新加密
-				return ((String)rawPassword).equalsIgnoreCase(encodedPassword);
-			}
-			
-			
-		};*/
+		/*
+		 * return new PasswordEncoder() {
+		 * 
+		 * @Override public String encode(CharSequence rawPassword) { return
+		 * rawPassword.toString(); }
+		 * 
+		 * @Override public boolean matches(CharSequence rawPassword, String
+		 * encodedPassword) { //String rp=
+		 * DigestUtils.md5DigestAsHex(rawPassword.toString().getBytes());
+		 * //前端传的密码rawPassword是md5方式，不需要重新加密 return
+		 * ((String)rawPassword).equalsIgnoreCase(encodedPassword); }
+		 * 
+		 * 
+		 * };
+		 */
 	}
 
-	
 	public static void main(String[] args) {
-		BCryptPasswordEncoder b= new BCryptPasswordEncoder();
+		BCryptPasswordEncoder b = new BCryptPasswordEncoder();
 		System.out.println(b.encode("f379eaf3c831b04de153469d1bec345e"));
 		System.out.println(DigestUtils.md5DigestAsHex("666666".getBytes()));
 	}

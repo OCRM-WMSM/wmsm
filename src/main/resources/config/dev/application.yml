@@ -54,3 +54,14 @@ logging:
  path: D:\\log
 swagger:
   enable: true
+  
+#ftp地址
+ftp:
+ #文件服务器文件地址
+ fileftpserver:
+  url: 22.188.229.116
+  port: 21
+  username: docrm
+  password: Aa-11111!
+  remotepath: /home/docrm/
+ 
