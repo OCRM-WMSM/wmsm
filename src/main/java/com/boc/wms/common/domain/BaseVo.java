@@ -1,4 +1,4 @@
-package com.boc.wms.demo.entity;
+package com.boc.wms.common.domain;
 
 import org.springframework.util.StringUtils;
 

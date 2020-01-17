@@ -1,5 +1,7 @@
 package com.boc.wms.demo.entity;
 
+import com.boc.wms.common.domain.BaseVo;
+
 /**
  * 实体类
  * @author st-wg-hjf7526
