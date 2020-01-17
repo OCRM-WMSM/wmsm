@@ -1,5 +1,6 @@
 package com.boc.wms.user.domain;
 
+import java.util.List;
 
 /**
  * ehr用户实体
@@ -22,12 +23,14 @@ public class Employee {
 	private String unitName;// 所属组织机构名称
 	private String employeeType;// 用工形式
 	private String employeeStatus;// 员工状态
-	//private String empRole;// 角色 01 管理人员 02营销人员 每个人只有一个角色
+	// private String empRole;// 角色 01 管理人员 02营销人员 每个人只有一个角色
 	private String lastMaintDate;// 更新时间
 	private String empPwd;// 登陆密码 md5加密
 	private String accStatus;// 账户状态 0注销 1正常
 	private String onlineFlag;// 登陆状态0 离线 1在线
 	private String annulReason;// 注销原因 1机构注销
+
+	private List<Role> roles;// 角色
 
 	public String getName() {
 		return name;
@@ -180,5 +183,15 @@ public class Employee {
 	public void setAnnulReason(String annulReason) {
 		this.annulReason = annulReason;
 	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	
 
 }

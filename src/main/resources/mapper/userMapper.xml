@@ -3,118 +3,217 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace指用户自定义的命名空间。 -->
 <mapper namespace="com.boc.wms.user.mapper.UserMapper">
-	
+
 	<resultMap id="EmployeeMap" type="com.boc.wms.user.domain.Employee">
-	  <id property="employeeId" column="c_employeeid"/>
-	  <result property="name" column="c_name"/>
-	  <result property="gender" column="c_gender"/>
-	  <result property="jobId" column="c_jobid"/>
-	  <result property="jobName" column="c_jobname"/>
-	  <result property="parentCode" column="c_parentcode"/>
-	  <result property="parentName" column="c_parentname"/>
-	  <result property="hireDate" column="c_hiredate"/>
-	  <result property="orgCode" column="c_orgcode"/>
-	  <result property="orgName" column="c_orgname"/>
-	  <result property="unitCode" column="c_unitcode"/>
-	  <result property="unitName" column="c_unitname"/>
-	  <result property="employeeType" column="c_employeetype"/>
-	  <result property="employeeStatus" column="c_employeestatus"/>
-	  <result property="lastMaintDate" column="last_maint_date"/>
-	  <result property="empPwd" column="c_emp_pwd"/>
-	  <result property="accStatus" column="c_acc_status"/>
-	  <result property="onlineFlag" column="c_online_flag"/>
-	  <result property="annulReason" column="c_annul_reason"/>
+		<id property="employeeId" column="c_employeeid" />
+		<result property="name" column="c_name" />
+		<result property="gender" column="c_gender" />
+		<result property="jobId" column="c_jobid" />
+		<result property="jobName" column="c_jobname" />
+		<result property="parentCode" column="c_parentcode" />
+		<result property="parentName" column="c_parentname" />
+		<result property="hireDate" column="c_hiredate" />
+		<result property="orgCode" column="c_orgcode" />
+		<result property="orgName" column="c_orgname" />
+		<result property="unitCode" column="c_unitcode" />
+		<result property="unitName" column="c_unitname" />
+		<result property="employeeType" column="c_employeetype" />
+		<result property="employeeStatus" column="c_employeestatus" />
+		<result property="lastMaintDate" column="last_maint_date" />
+		<result property="empPwd" column="c_emp_pwd" />
+		<result property="accStatus" column="c_acc_status" />
+		<result property="onlineFlag" column="c_online_flag" />
+		<result property="annulReason" column="c_annul_reason" />
+	</resultMap>
+
+	<resultMap id="RoleMap" type="com.boc.wms.user.domain.Role">
+		<id property="roleId" column="ROLE_ID" />
+		<result property="roleCode" column="ROLE_CODE" />
+		<result property="roleName" column="ROLE_NAME" />
+		<result property="createdDate" column="CREATED_DATE" />
+		<result property="updatedDate" column="UPDATED_DATE" />
+		<result property="roleSts" column="ROLE_STS" />
 	</resultMap>
 	<select id="findUserById" parameterType="string" resultMap="EmployeeMap">
-		select  c_name           ,
-				c_gender         ,
-				c_employeeid     ,
-				c_jobid          ,
-				c_jobname        ,
-				c_parentcode     ,
-				c_parentname     ,
-				c_hiredate       ,
-				c_orgcode        ,
-				c_orgname        ,
-				c_unitcode       ,
-				c_unitname       ,
-				c_employeetype   ,
-				c_employeestatus ,
-				last_maint_date  ,
-				c_emp_pwd,
-				c_acc_status,
-				c_online_flag,
-				c_annul_reason
-		       from EHR_INF_EMPLOYEE
-		       where c_employeeid=#{username}
+		select c_name ,
+		c_gender ,
+		c_employeeid ,
+		c_jobid ,
+		c_jobname ,
+		c_parentcode ,
+		c_parentname ,
+		c_hiredate ,
+		c_orgcode ,
+		c_orgname ,
+		c_unitcode ,
+		c_unitname ,
+		c_employeetype ,
+		c_employeestatus ,
+		last_maint_date ,
+		c_emp_pwd,
+		c_acc_status,
+		c_online_flag,
+		c_annul_reason
+		from EHR_INF_EMPLOYEE
+		where c_employeeid=#{username}
 	</select>
-	
-	<update id="updateUserById" parameterType="com.boc.wms.user.domain.Employee" >
-		update  EHR_INF_EMPLOYEE 
+
+	<update id="updateUserById" parameterType="com.boc.wms.user.domain.Employee">
+		update EHR_INF_EMPLOYEE
 		<set>
-		  <if test="name != null and name !=''">
-		    c_name=#{name},
-		  </if>
-		  <if test="gender != null and gender !=''">
-		    c_gender=#{gender},
-		  </if>
-		  <if test="jobId != null and jobId !=''">
-		    c_jobid=#{jobId},
-		  </if>
-		  <if test="jobName != null and jobName !=''">
-		    c_jobname=#{jobName},
-		  </if>
-		  <if test="parentCode != null and parentCode !=''">
-		    c_parentcode=#{parentCode},
-		  </if>
-		  <if test="parentName != null and parentName !=''">
-		    c_parentname=#{parentName},
-		  </if>
-		  <if test="hireDate != null and hireDate !=''">
-		    c_hiredate=#{hireDate},
-		  </if>
-		  <if test="orgCode != null and orgCode !=''">
-		    c_orgcode=#{orgCode},
-		  </if>
-		  <if test="orgName != null and orgName !=''">
-		    c_orgname=#{orgName},
-		  </if>
-		  <if test="unitCode != null and unitCode !=''">
-		    c_unitcode=#{unitCode},
-		  </if>
-		  <if test="unitName != null and unitName !=''">
-		    c_unitname=#{unitName},
-		  </if>
-		  <if test="employeeType != null and employeeType !=''">
-		    c_employeetype=#{employeeType},
-		  </if>
-		  <if test="employeeStatus != null and employeeStatus !=''">
-		    c_employeestatus=#{employeeStatus},
-		  </if>
-		  <if test="lastMaintDate != null and lastMaintDate !=''">
-		    last_maint_date=#{lastMaintDate},
-		  </if>
-		  <if test="empPwd != null and empPwd !=''">
-		    c_emp_pwd=#{empPwd},
-		  </if>
-		  <if test="accStatus != null and accStatus !=''">
-		    c_acc_status=#{accStatus},
-		  </if>
-		  <if test="onlineFlag != null and onlineFlag !=''">
-		    c_online_flag=#{onlineFlag},
-		  </if>
-		  <if test="annulReason != null and annulReason !=''">
-		    c_annul_reason=#{annulReason},
-		  </if>
-		
-		</set>   
-		 where c_employeeid=#{employeeId}
+			<if test="name != null and name !=''">
+				c_name=#{name},
+			</if>
+			<if test="gender != null and gender !=''">
+				c_gender=#{gender},
+			</if>
+			<if test="jobId != null and jobId !=''">
+				c_jobid=#{jobId},
+			</if>
+			<if test="jobName != null and jobName !=''">
+				c_jobname=#{jobName},
+			</if>
+			<if test="parentCode != null and parentCode !=''">
+				c_parentcode=#{parentCode},
+			</if>
+			<if test="parentName != null and parentName !=''">
+				c_parentname=#{parentName},
+			</if>
+			<if test="hireDate != null and hireDate !=''">
+				c_hiredate=#{hireDate},
+			</if>
+			<if test="orgCode != null and orgCode !=''">
+				c_orgcode=#{orgCode},
+			</if>
+			<if test="orgName != null and orgName !=''">
+				c_orgname=#{orgName},
+			</if>
+			<if test="unitCode != null and unitCode !=''">
+				c_unitcode=#{unitCode},
+			</if>
+			<if test="unitName != null and unitName !=''">
+				c_unitname=#{unitName},
+			</if>
+			<if test="employeeType != null and employeeType !=''">
+				c_employeetype=#{employeeType},
+			</if>
+			<if test="employeeStatus != null and employeeStatus !=''">
+				c_employeestatus=#{employeeStatus},
+			</if>
+			<if test="lastMaintDate != null and lastMaintDate !=''">
+				last_maint_date=#{lastMaintDate},
+			</if>
+			<if test="empPwd != null and empPwd !=''">
+				c_emp_pwd=#{empPwd},
+			</if>
+			<if test="accStatus != null and accStatus !=''">
+				c_acc_status=#{accStatus},
+			</if>
+			<if test="onlineFlag != null and onlineFlag !=''">
+				c_online_flag=#{onlineFlag},
+			</if>
+			<if test="annulReason != null and annulReason !=''">
+				c_annul_reason=#{annulReason},
+			</if>
+
+		</set>
+		where c_employeeid=#{employeeId}
 	</update>
-	
+
 	<update id="resetUserPwdById">
-	     update  EHR_INF_EMPLOYEE  set c_emp_pwd=#{password} where c_employeeid=#{employeeId}
-	
+		update EHR_INF_EMPLOYEE set c_emp_pwd=#{password} where
+		c_employeeid=#{employeeId}
+
 	</update>
-	
-	
+
+	<select id="findRolesByUserId" parameterType="string" resultMap="RoleMap">
+		select
+		r.ROLE_ID,r.ROLE_CODE,r.ROLE_NAME,r.CREATED_DATE,r.UPDATED_DATE,r.ROLE_STS
+		from EHR_INF_EMPLOYEE e
+		join ocrm_employee_role er on e.C_EMPLOYEEID=er.EMPLOYEE_ID
+		join ocrm_role r on er.ROLE_ID=r.ROLE_ID
+		where e.c_employeeid=#{userId} and r.ROLE_STS='1'
+	</select>
+
+	<select id="selectUserPageList" resultMap="EmployeeMap">
+		select c_name ,
+		c_gender ,
+		c_employeeid ,
+		c_jobid ,
+		c_jobname ,
+		c_parentcode ,
+		c_parentname ,
+		c_hiredate ,
+		c_orgcode ,
+		c_orgname ,
+		c_unitcode ,
+		c_unitname ,
+		c_employeetype ,
+		c_employeestatus ,
+		last_maint_date ,
+		c_emp_pwd,
+		c_acc_status,
+		c_online_flag,
+		c_annul_reason
+		from EHR_INF_EMPLOYEE
+		<where>
+			<if test="employee.name != null and employee.name !=''">
+				and c_name like '%${employee.name}%'
+			</if>
+			<if test="employee.gender != null and employee.gender !=''">
+				and c_gender=#{employee.gender}
+			</if>
+			<if test="employee.jobId != null and employee.jobId !=''">
+				and c_jobid=#{employee.jobId}
+			</if>
+			<if test="employee.jobName != null and employee.jobName !=''">
+				and c_jobname=#{employee.jobName}
+			</if>
+			<if test="employee.parentCode != null and employee.parentCode !=''">
+				and c_parentcode=#{employee.parentCode}
+			</if>
+			<if test="employee.parentName != null and employee.parentName !=''">
+				and c_parentname=#{employee.parentName}
+			</if>
+			<if test="employee.hireDate != null and employee.hireDate !=''">
+				and c_hiredate=#{employee.hireDate}
+			</if>
+			<if test="employee.orgCode != null and employee.orgCode !=''">
+				and c_orgcode=#{employee.orgCode}
+			</if>
+			<if test="employee.orgName != null and employee.orgName !=''">
+				and c_orgname=#{employee.orgName}
+			</if>
+			<if test="employee.unitCode != null and employee.unitCode !=''">
+				and c_unitcode=#{employee.unitCode}
+			</if>
+			<if test="employee.unitName != null and employee.unitName !=''">
+				and c_unitname=#{employee.unitName}
+			</if>
+			<if test="employee.employeeType != null and employee.employeeType !=''">
+				and c_employeetype=#{employee.employeeType}
+			</if>
+			<if test="employee.employeeStatus != null and employee.employeeStatus !=''">
+				and c_employeestatus=#{employee.employeeStatus}
+			</if>
+			<if test="employee.lastMaintDate != null and employee.lastMaintDate !=''">
+				and last_maint_date=#{employee.lastMaintDate}
+			</if>
+			<if test="employee.empPwd != null and employee.empPwd !=''">
+				and c_emp_pwd=#{employee.empPwd}
+			</if>
+			<if test="employee.accStatus != null and employee.accStatus !=''">
+				and c_acc_status=#{employee.accStatus}
+			</if>
+			<if test="employee.onlineFlag != null and employee.onlineFlag !=''">
+				and c_online_flag=#{employee.onlineFlag}
+			</if>
+			<if test="employee.annulReason != null and employee.annulReason !=''">
+				and c_annul_reason=#{employee.annulReason}
+			</if>
+		</where>
+	</select>
+
+
+
 </mapper>

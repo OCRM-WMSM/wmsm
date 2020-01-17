@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -88,10 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						claims.put("username", user.getUsername());
 						List<GrantedAuthority> list = (List<GrantedAuthority>) user.getAuthorities();
 						List<String> l = new ArrayList<String>();
-						for (GrantedAuthority g : list) {
-							String role = g.getAuthority();
-							l.add(role);
-						}
+						l = list.stream().map(x -> x.getAuthority()).collect(Collectors.toList());
 						claims.put("roles", l);
 						String token = JwtUtil.generateToken(claims);
 						ApiResult a = new ApiResult("0", "登录成功");

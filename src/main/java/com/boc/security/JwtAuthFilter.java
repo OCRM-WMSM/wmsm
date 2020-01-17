@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -27,6 +28,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 
 /**
  * 每次请求都加上security权限验证
+ * 
  * @author st-wg-hzw14176
  *
  */
@@ -57,17 +59,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 		}
 
 		if (tokenParse != null) {
-			String username=tokenParse.get("username").toString();
-			List<String> roleList=(List<String>) tokenParse.get("roles");
-			List<GrantedAuthority> roles=new ArrayList<>();
-			for(String role:roleList) {
-				roles.add(new SimpleGrantedAuthority(role));
-			}
-			//如果jwt解析出账号信息，说明是合法用户，设置认证信息，认证通过
-			if(username!=null&&SecurityContextHolder.getContext().getAuthentication()==null) {
-				UsernamePasswordAuthenticationToken auth=new UsernamePasswordAuthenticationToken(username, null, roles);
+			String username = tokenParse.get("username").toString();
+			List<String> roleList = (List<String>) tokenParse.get("roles");
+			List<GrantedAuthority> roles = roleList.stream().map(x -> new SimpleGrantedAuthority(x))
+					.collect(Collectors.toList());
+			// 如果jwt解析出账号信息，说明是合法用户，设置认证信息，认证通过
+			if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+				UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username, null,
+						roles);
 				auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				//设置认证信息
+				// 设置认证信息
 				SecurityContextHolder.getContext().setAuthentication(auth);
 			}
 

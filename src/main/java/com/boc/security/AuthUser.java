@@ -3,46 +3,56 @@ package com.boc.security;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.boc.wms.user.domain.Employee;
+import com.boc.wms.user.domain.Role;
 
-public class AuthUser implements UserDetails{
-	
+/**
+ * 权限认证用户
+ * 
+ * @author st-wg-hzw14176
+ *
+ */
+public class AuthUser implements UserDetails {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private String username;
-	
+
 	private String password;
-	
+
 	private List<GrantedAuthority> list;
-	
+
 	private Employee employee;
-    
-	
-	
+
 	public AuthUser(String username, String password, List<GrantedAuthority> list) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.list = list;
 	}
-	
+
 	public AuthUser(Employee employee) {
 		super();
 		this.username = employee.getName();
 		this.password = employee.getEmpPwd();
-		//目前一个用户只有一个角色
-		List<GrantedAuthority> l=new ArrayList<GrantedAuthority>();
-		l.add(new SimpleGrantedAuthority("01"));//需要这样加前缀
+		List<GrantedAuthority> l = new ArrayList<GrantedAuthority>();
+		List<Role> roles = employee.getRoles();
+		if (roles == null || roles.size() == 0) {
+			l.add(new SimpleGrantedAuthority("null"));// 默认没有角色
+		} else {
+			l = roles.stream().map(x -> new SimpleGrantedAuthority(x.getRoleCode())).collect(Collectors.toList());
+		}
 		this.list = l;
-		this.employee=employee;
+		this.employee = employee;
 	}
 
 	@Override
@@ -94,7 +104,5 @@ public class AuthUser implements UserDetails{
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
-	
-	
 
 }
