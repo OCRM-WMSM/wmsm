@@ -3,6 +3,7 @@ package com.boc.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.boc.wms.common.domain.DwBocBchLvlEntity;
 
@@ -15,6 +16,13 @@ public interface CommonMapper {
 	 * @param orgNo
 	 * @return
 	 */
-	List<DwBocBchLvlEntity> selectAllDwBocBchLvlList();
+	List<DwBocBchLvlEntity> selectAllChildrenList(@Param("parentId") String parentId, @Param("orglvl") int orglvl);
+
+	/**
+	 * 根据机构id查询机构
+	 * 
+	 * @return
+	 */
+	DwBocBchLvlEntity selectAllDwBocBchLvlByOrgId(String orgId);
 
 }

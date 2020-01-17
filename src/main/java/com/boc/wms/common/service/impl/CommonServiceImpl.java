@@ -25,43 +25,23 @@ public class CommonServiceImpl implements CommonService {
 	@DataSource(DataSourceEnum.DB1)
 	@Override
 	public List<OrgTreeEntity> findOrgTree(String orgNo) {
-		/** 这里可以将所有机构缓存起来，查询起来快些TODO */
-		List<DwBocBchLvlEntity> list = commonMapper.selectAllDwBocBchLvlList();
+		//查询当前用户信息
+		DwBocBchLvlEntity srcOrg=commonMapper.selectAllDwBocBchLvlByOrgId(orgNo);
+		//查询子菜单
+		List<DwBocBchLvlEntity> list = commonMapper.selectAllChildrenList(srcOrg.getItlBchIdn(),srcOrg.getItlBchLvl());
 		if (list == null || list.size() == 0) {
 			return Collections.emptyList();
 		}
 		// 返回菜单树对象
 		List<OrgTreeEntity> returnList = new ArrayList<>();
-		if (StringUtils.isEmpty(orgNo)) {
-			// 返回整个机构数，既从总行开始
-			for (DwBocBchLvlEntity e : list) {
-				if (e.getItlBchLvl() == 2) {
-					OrgTreeEntity entity = new OrgTreeEntity();
-					int lvl = e.getItlBchLvl();// 级别
-					String orgCode = e.getItlBchIdn();// 机构号
-					entity.setOrgNo(e.getItlBchIdn());
-					entity.setOrgName(e.getItlBchNme());
-					;
-					findTreeChildren(lvl, orgCode, list, entity);
-					returnList.add(entity);
-				}
-			}
-		} else {
-			// 返回当前机构的机构数
-			for (DwBocBchLvlEntity e : list) {
-				if (e.getItlBchIdn().equals(orgNo)) {
-					OrgTreeEntity entity = new OrgTreeEntity();
-					int lvl = e.getItlBchLvl();// 级别
-					String orgCode = e.getItlBchIdn();// 机构号
-					entity.setOrgNo(e.getItlBchIdn());
-					entity.setOrgName(e.getItlBchNme());
-					;
-					findTreeChildren(lvl, orgCode, list, entity);
-					returnList.add(entity);
-
-				}
-			}
-		}
+		OrgTreeEntity entity = new OrgTreeEntity();
+		int lvl = srcOrg.getItlBchLvl();// 级别
+		String orgCode = srcOrg.getItlBchIdn();// 机构号
+		entity.setOrgNo(srcOrg.getItlBchIdn());
+		entity.setOrgName(srcOrg.getItlBchNme());
+		;
+		findTreeChildren(lvl, orgCode, list, entity);
+		returnList.add(entity);
 
 		return returnList;
 	}
