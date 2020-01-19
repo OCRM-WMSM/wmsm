@@ -4,7 +4,7 @@ public class MultParamOpEntity {
     /*
      * 参数表主键
      */
-    private Long seqMultOp;
+    private Integer ocrmMultOp;
 
     /**
      * ocrm_multiparams中的唯一键
@@ -61,12 +61,12 @@ public class MultParamOpEntity {
         this.sts = sts;
     }
 
-    public Long getSeqMultOp() {
-        return seqMultOp;
+    public Integer getOcrmMultOp() {
+        return ocrmMultOp;
     }
 
-    public void setSeqMultOp(Long seqMultOp) {
-        this.seqMultOp = seqMultOp;
+    public void setOcrmMultOp(Integer ocrmMultOp) {
+        this.ocrmMultOp = ocrmMultOp;
     }
 
     public Integer getSeqMult() {

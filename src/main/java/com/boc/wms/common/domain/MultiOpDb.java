@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-@TableName("ocrm_menu")
+@TableName("ocrm_mult_op")
 public class MultiOpDb {
     @TableId(value = "ocrm_mult_op")
     private Integer ocrmMultOp;

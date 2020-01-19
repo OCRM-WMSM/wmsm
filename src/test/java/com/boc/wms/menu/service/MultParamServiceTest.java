@@ -1,8 +1,7 @@
-package com.boc.wms.menu.dao;
+package com.boc.wms.menu.service;
 
-
-import com.boc.wms.common.dao.MultiParamDao;
-import com.boc.wms.common.domain.MultiParamEntity;
+import com.boc.wms.common.domain.ParamEntity;
+import com.boc.wms.common.service.MultiParamService;
 import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,17 +14,18 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest()
-public class MultiParamDaoTest {
+public class MultParamServiceTest {
 
 
     @Resource
-    private MultiParamDao multiParamDao;
+    private MultiParamService multiParamService;
 
     @Test
     public void testListMultiParamByCodeList(){
         List<String> codeList = Lists.newArrayList("EQT006","EQT007");
-        List<MultiParamEntity> multiParamEntityList = multiParamDao.listMultiParamByCodeList(codeList);
-        Assert.assertNotNull(multiParamEntityList);
+        List<ParamEntity> paramEntityList = multiParamService.listMultiParamByCodeList(codeList);
+        Assert.assertNotNull(paramEntityList);
     }
+
 
 }
