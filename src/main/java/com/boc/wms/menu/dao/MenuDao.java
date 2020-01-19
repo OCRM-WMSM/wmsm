@@ -1,6 +1,5 @@
 package com.boc.wms.menu.dao;
 
-import com.boc.mapper.MenuMapper;
 import com.boc.wms.menu.domain.convertor.MenuConvertor;
 import com.boc.wms.menu.domain.db.MenuDb;
 import com.boc.wms.menu.domain.entity.MenuEntity;

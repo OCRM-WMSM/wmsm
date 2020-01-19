@@ -1,29 +1,17 @@
 package com.boc.wms.demo.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
+import com.boc.exception.BusException;
+import com.boc.wms.demo.mapper.DemoMapper;
+import com.boc.wms.demo.service.DemoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.boc.exception.BusException;
-import com.boc.wms.demo.mapper.DemoMapper;
-import com.boc.wms.demo.service.DemoService;
-
-import io.swagger.annotations.Api;
+import javax.validation.constraints.NotEmpty;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * rest 风格controller

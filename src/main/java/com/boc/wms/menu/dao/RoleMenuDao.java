@@ -1,6 +1,5 @@
 package com.boc.wms.menu.dao;
 
-import com.boc.mapper.RoleMenuMapper;
 import com.boc.wms.menu.domain.db.RoleMenuDb;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Repository;

@@ -1,19 +1,18 @@
 package com.boc.security;
 
 
-import java.util.List;
-
+import com.boc.common.annotation.DataSource;
+import com.boc.common.enums.DataSourceEnum;
+import com.boc.wms.user.domain.Employee;
+import com.boc.wms.user.domain.Role;
+import com.boc.wms.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.boc.common.annotation.DataSource;
-import com.boc.common.enums.DataSourceEnum;
-import com.boc.wms.user.domain.Employee;
-import com.boc.wms.user.domain.Role;
-import com.boc.wms.user.service.UserService;
+import java.util.List;
 
 /**
  * 用户登陆后security调用此接口查询用户进行密码验证

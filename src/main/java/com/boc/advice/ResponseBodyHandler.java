@@ -1,7 +1,10 @@
 package com.boc.advice;
 
-import java.util.Map;
-
+import com.boc.api.ApiResult;
+import com.boc.api.ApiResultCode;
+import com.boc.exception.BusException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
@@ -12,11 +15,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import com.boc.api.ApiResultCode;
-import com.boc.api.ApiResult;
-import com.boc.exception.BusException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Map;
 
 /**
  * 对返回结果统一处理，简化controller层返回代码

@@ -1,12 +1,11 @@
 package com.boc.wms.common.controller;
 
 
+import com.boc.api.ApiResult;
+import com.boc.api.ApiResultCode;
 import com.boc.wms.menu.service.RoleMenuService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.boc.api.ApiResultCode;
-import com.boc.api.ApiResult;
 
 import javax.annotation.Resource;
 

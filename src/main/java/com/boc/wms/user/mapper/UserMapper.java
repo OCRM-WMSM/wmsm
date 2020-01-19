@@ -1,14 +1,15 @@
 package com.boc.wms.user.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.boc.wms.user.domain.Employee;
 import com.boc.wms.user.domain.Role;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
 
 @Mapper
 public interface UserMapper extends BaseMapper<Employee> {

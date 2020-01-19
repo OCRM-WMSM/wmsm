@@ -1,19 +1,14 @@
 package com.boc.wms.menu.service.impl;
 
-import com.boc.mapper.RoleMenuMapper;
 import com.boc.wms.menu.dao.MenuDao;
 import com.boc.wms.menu.dao.RoleMenuDao;
 import com.boc.wms.menu.domain.entity.MenuEntity;
 import com.boc.wms.menu.domain.entity.RoleMenuAggre;
 import com.boc.wms.menu.service.RoleMenuService;
-import com.google.common.collect.Lists;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.List;
 
 @Service

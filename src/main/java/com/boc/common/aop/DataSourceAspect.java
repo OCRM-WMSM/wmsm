@@ -1,14 +1,13 @@
 package com.boc.common.aop;
 
+import com.boc.common.annotation.DataSource;
+import com.boc.common.multiple.DataSourceContextHolder;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import com.boc.common.annotation.DataSource;
-import com.boc.common.multiple.DataSourceContextHolder;
 /**
  * 数据源aop
  * @author st-wg-hjf7526

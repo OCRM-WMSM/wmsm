@@ -1,18 +1,17 @@
 package com.boc.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.SocketException;
-
+import com.boc.exception.BusException;
+import com.boc.util.ftpConfig.FtpBaseConfig;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.boc.exception.BusException;
-import com.boc.util.ftpConfig.FtpBaseConfig;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.SocketException;
 
 /**
  * ftp工具

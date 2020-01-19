@@ -1,7 +1,8 @@
 package com.boc.advice;
 
-import javax.validation.ConstraintViolationException;
-
+import com.boc.api.ApiResult;
+import com.boc.api.ApiResultCode;
+import com.boc.exception.BusException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -12,9 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import com.boc.api.ApiResultCode;
-import com.boc.api.ApiResult;
-import com.boc.exception.BusException;
+import javax.validation.ConstraintViolationException;
 
 /**
  * 全局异常统一处理，restcontroller 和 controller的异常都在此统一处理

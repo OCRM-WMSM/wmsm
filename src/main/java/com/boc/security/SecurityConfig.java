@@ -1,16 +1,10 @@
 package com.boc.security;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.boc.api.ApiResult;
+import com.boc.api.ApiResultCode;
+import com.boc.util.JwtUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,10 +28,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.util.DigestUtils;
 
-import com.boc.api.ApiResultCode;
-import com.boc.api.ApiResult;
-import com.boc.util.JwtUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 权限配置
@@ -71,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						ApiResult a = new ApiResult(ApiResultCode.LOGIN_NO);
 						arg1.getWriter().write(mapper.writeValueAsString(a));
 					}
-				}).and().authorizeRequests().antMatchers("/demo/*", "/config/**").permitAll()
+				}).and().authorizeRequests().antMatchers("/demo/*").permitAll()
 				.antMatchers("/favicon.ico", "/swagger**/**", "/*/api-docs", "/webjars/**").permitAll() // swagger允许访问
 				.antMatchers("/blacklist/downloadBlackListTmp").permitAll() // 黑名单模板允许访问
 				.anyRequest().authenticated()

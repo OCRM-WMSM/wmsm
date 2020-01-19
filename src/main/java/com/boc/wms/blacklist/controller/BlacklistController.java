@@ -1,15 +1,10 @@
 package com.boc.wms.blacklist.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotEmpty;
-
+import com.boc.api.ApiResult;
+import com.boc.api.ApiResultCode;
+import com.boc.exception.BusException;
+import com.boc.util.FtpUtil;
+import com.boc.util.ftpConfig.FileServerFtpConfiger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.boc.api.ApiResult;
-import com.boc.api.ApiResultCode;
-import com.boc.exception.BusException;
-import com.boc.util.FtpUtil;
-import com.boc.util.ftpConfig.FileServerFtpConfiger;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotEmpty;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 /**
  * 黑名单管理controller

@@ -1,15 +1,13 @@
 package com.boc.util;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.stereotype.Component;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 /**
  * jwt 加解密工具
  * @author st-wg-hzw14176

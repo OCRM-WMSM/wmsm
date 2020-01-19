@@ -1,10 +1,16 @@
 package com.boc.wms.common.domain;
 
-public class ParamOpEntity {
+public class MultParamOpEntity {
     /*
      * 参数表主键
      */
     private Long seqMultOp;
+
+    /**
+     * ocrm_multiparams中的唯一键
+     */
+    private Integer seqMult;
+
     /*
      * 顺序号
      */
@@ -61,5 +67,13 @@ public class ParamOpEntity {
 
     public void setSeqMultOp(Long seqMultOp) {
         this.seqMultOp = seqMultOp;
+    }
+
+    public Integer getSeqMult() {
+        return seqMult;
+    }
+
+    public void setSeqMult(Integer seqMult) {
+        this.seqMult = seqMult;
     }
 }

@@ -1,4 +1,4 @@
-package com.boc.mapper;
+package com.boc.wms.menu.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.boc.wms.menu.domain.db.RoleMenuDb;

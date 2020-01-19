@@ -1,16 +1,15 @@
 package com.boc.security;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.boc.wms.user.domain.Employee;
+import com.boc.wms.user.domain.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.boc.wms.user.domain.Employee;
-import com.boc.wms.user.domain.Role;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 权限认证用户
