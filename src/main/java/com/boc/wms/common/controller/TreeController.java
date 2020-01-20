@@ -29,7 +29,7 @@ public class TreeController {
 	private CommonService commonService;
 
 	@ApiOperation("查询机构树")
-	@ApiImplicitParams({ @ApiImplicitParam(name = "orgNo", value = "用户编号", required = false) })
+	@ApiImplicitParams({ @ApiImplicitParam(name = "orgNo", value = "机构编号", required = true) })
 	@PostMapping("/orgTree")
 	public Object queryOrgTree(String orgNo) {
 		List<OrgTreeEntity> list = commonService.findOrgTree(orgNo);

@@ -10,6 +10,7 @@ import com.boc.util.ftpConfig.FileServerFtpConfiger;
 import com.boc.wms.blacklist.domain.BlacklistStat;
 import com.boc.wms.blacklist.service.BlacklistService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import org.slf4j.Logger;
@@ -36,6 +37,7 @@ import java.time.format.DateTimeFormatter;
  * @author st-wg-hzw14176
  *
  */
+@Api(tags = "黑名单管理模块接口")
 @RequestMapping("/blacklist")
 @RestController
 public class BlacklistController {
@@ -127,7 +129,7 @@ public class BlacklistController {
 
 	}
 
-	@RequestMapping("/getBlackListHistory")
+	@PostMapping("/getBlackListHistory")
 	@ApiOperation(value = "查询黑名单上传历史记录")
 	public Object getUserList( String jsonUser,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
