@@ -90,6 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						List<String> l = new ArrayList<String>();
 						l = list.stream().map(x -> x.getAuthority()).collect(Collectors.toList());
 						claims.put("roles", l);
+						claims.put("orgCode", user.getEmployee().getOrgCode());
 						String token = JwtUtil.generateToken(claims);
 						ApiResult a = new ApiResult("0", "登录成功");
 						// 返回数据,token和user
