@@ -82,7 +82,7 @@ public class UserController {
 	@ApiImplicitParams({ @ApiImplicitParam(name = "employeeId", value = "用户编号", required = true),
 			@ApiImplicitParam(name = "password", value = "密码", required = true) })
 	@PostMapping("/resetPwd")
-	public ApiResult resetPwd(@NotEmpty String employeeId, @NotEmpty String password) {
+	public ApiResult resetPwd(@NotEmpty String employeeId, String password) {
 		userService.resetUserPwd(employeeId, password);
 		return ApiResult.success();
 	}
@@ -94,8 +94,7 @@ public class UserController {
 		List<Role> roles = userService.findRolesByUserId(employeeId);
 		List<MenuEntity> menus = new ArrayList<>();
 		for (Role role : roles) {
-			RoleMenuAggre r = roleMenuService.getRoleMenuByRoleId(role.getRoleId());
-			List<MenuEntity> ms = r.getMenuList();
+			List<MenuEntity> ms = userService.findMenusByRoleId(role.getRoleId());
 			menus.addAll(ms);
 		}
 		// 去重
@@ -110,7 +109,7 @@ public class UserController {
 	@ApiOperation(value = "查询用户list")
 	public Object getUserList(@RequestParam("user") String jsonUser,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-			@RequestParam(value = "currentPage", defaultValue = "10") int pageSize) {
+			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 		Employee e=JSONObject.parseObject(jsonUser, Employee.class);
 		Page<Employee> page = new Page<>(currentPage, pageSize);
 		page = userService.selectUserPageList(page, e);
@@ -118,9 +117,29 @@ public class UserController {
 		for(Employee emp:list) {
 			List<Role> roles = userService.findRolesByUserId(emp.getEmployeeId());
 			emp.setRoles(roles);
+			//TODO 当前角色暂时只有一个
+			if(roles.size()>=1) {
+				emp.setCurrentRole(roles.get(0));
+			}
 		}
 		return page;
 	}
+	
+	@RequestMapping("/getUserSelectRoles")
+	@ApiOperation(value = "查询用户角色,所具有的还不具有的都查出来")
+	public Object findUserRoleList(@NotEmpty String employeeId) {
+		
+		return userService.getUserSelectRoles(employeeId);
+	}
+	
+	@RequestMapping("/updateRoles")
+	@ApiOperation(value = "查询用户角色,所具有的还不具有的都查出来")
+	public Object updateRoles(@NotEmpty String employeeId,String roleIds) {
+		List<String> list=JSONObject.parseArray(roleIds, String.class);
+		userService.updateRoles(employeeId, list);
+		return ApiResult.success();
+	}
+	
 	
 
 }

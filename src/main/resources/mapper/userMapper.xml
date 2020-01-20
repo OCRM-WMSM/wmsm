@@ -24,6 +24,7 @@
 		<result property="accStatus" column="c_acc_status" />
 		<result property="onlineFlag" column="c_online_flag" />
 		<result property="annulReason" column="c_annul_reason" />
+		<result property="orgLvl" column="ITL_BCH_LVL" />
 	</resultMap>
 
 	<resultMap id="RoleMap" type="com.boc.wms.user.domain.Role">
@@ -35,26 +36,27 @@
 		<result property="roleSts" column="ROLE_STS" />
 	</resultMap>
 	<select id="findUserById" parameterType="string" resultMap="EmployeeMap">
-		select c_name ,
-		c_gender ,
-		c_employeeid ,
-		c_jobid ,
-		c_jobname ,
-		c_parentcode ,
-		c_parentname ,
-		c_hiredate ,
-		c_orgcode ,
-		c_orgname ,
-		c_unitcode ,
-		c_unitname ,
-		c_employeetype ,
-		c_employeestatus ,
-		last_maint_date ,
-		c_emp_pwd,
-		c_acc_status,
-		c_online_flag,
-		c_annul_reason
-		from EHR_INF_EMPLOYEE
+		select e.c_name ,
+		e.c_gender ,
+		e.c_employeeid ,
+		e.c_jobid ,
+		e.c_jobname ,
+		e.c_parentcode ,
+		e.c_parentname ,
+		e.c_hiredate ,
+		e.c_orgcode ,
+		e.c_orgname ,
+		e.c_unitcode ,
+		e.c_unitname ,
+		e.c_employeetype ,
+		e.c_employeestatus ,
+		e.last_maint_date ,
+		e.c_emp_pwd,
+		e.c_acc_status,
+		e.c_online_flag,
+		e.c_annul_reason,
+		d.ITL_BCH_LVL
+		from EHR_INF_EMPLOYEE e join DW_BOC_BCH_LVL d on e.C_ORGCODE=d.ITL_BCH_IDN
 		where c_employeeid=#{username}
 	</select>
 
@@ -136,82 +138,113 @@
 	</select>
 
 	<select id="selectUserPageList" resultMap="EmployeeMap">
-		select c_name ,
-		c_gender ,
-		c_employeeid ,
-		c_jobid ,
-		c_jobname ,
-		c_parentcode ,
-		c_parentname ,
-		c_hiredate ,
-		c_orgcode ,
-		c_orgname ,
-		c_unitcode ,
-		c_unitname ,
-		c_employeetype ,
-		c_employeestatus ,
-		last_maint_date ,
-		c_emp_pwd,
-		c_acc_status,
-		c_online_flag,
-		c_annul_reason
-		from EHR_INF_EMPLOYEE
+		select e.c_name ,
+		e.c_gender ,
+		e.c_employeeid ,
+		e.c_jobid ,
+		e.c_jobname ,
+		e.c_parentcode ,
+		e.c_parentname ,
+		e.c_hiredate ,
+		e.c_orgcode ,
+		e.c_orgname ,
+		e.c_unitcode ,
+		e.c_unitname ,
+		e.c_employeetype ,
+		e.c_employeestatus ,
+		e.last_maint_date ,
+		e.c_emp_pwd,
+		e.c_acc_status,
+		e.c_online_flag,
+		c_annul_reason,
+		d.ITL_BCH_LVL
+		from EHR_INF_EMPLOYEE e join DW_BOC_BCH_LVL d on e.C_ORGCODE=d.ITL_BCH_IDN
 		<where>
 			<if test="employee.name != null and employee.name !=''">
-				and c_name like '%${employee.name}%'
+				and e.c_name like '%${employee.name}%'
 			</if>
 			<if test="employee.gender != null and employee.gender !=''">
-				and c_gender=#{employee.gender}
+				and e.c_gender=#{employee.gender}
 			</if>
 			<if test="employee.jobId != null and employee.jobId !=''">
-				and c_jobid=#{employee.jobId}
+				and e.c_jobid=#{employee.jobId}
 			</if>
 			<if test="employee.jobName != null and employee.jobName !=''">
-				and c_jobname=#{employee.jobName}
+				and e.c_jobname=#{employee.jobName}
 			</if>
 			<if test="employee.parentCode != null and employee.parentCode !=''">
-				and c_parentcode=#{employee.parentCode}
+				and e.c_parentcode=#{employee.parentCode}
 			</if>
 			<if test="employee.parentName != null and employee.parentName !=''">
-				and c_parentname=#{employee.parentName}
+				and e.c_parentname=#{employee.parentName}
 			</if>
 			<if test="employee.hireDate != null and employee.hireDate !=''">
-				and c_hiredate=#{employee.hireDate}
+				and e.c_hiredate=#{employee.hireDate}
 			</if>
 			<if test="employee.orgCode != null and employee.orgCode !=''">
-				and c_orgcode=#{employee.orgCode}
+				and e.c_orgcode=#{employee.orgCode}
 			</if>
 			<if test="employee.orgName != null and employee.orgName !=''">
-				and c_orgname=#{employee.orgName}
+				and e.c_orgname=#{employee.orgName}
 			</if>
 			<if test="employee.unitCode != null and employee.unitCode !=''">
-				and c_unitcode=#{employee.unitCode}
+				and e.c_unitcode=#{employee.unitCode}
 			</if>
 			<if test="employee.unitName != null and employee.unitName !=''">
-				and c_unitname=#{employee.unitName}
+				and e.c_unitname=#{employee.unitName}
 			</if>
 			<if test="employee.employeeType != null and employee.employeeType !=''">
-				and c_employeetype=#{employee.employeeType}
+				and e.c_employeetype=#{employee.employeeType}
 			</if>
 			<if test="employee.employeeStatus != null and employee.employeeStatus !=''">
-				and c_employeestatus=#{employee.employeeStatus}
+				and e.c_employeestatus=#{employee.employeeStatus}
 			</if>
 			<if test="employee.lastMaintDate != null and employee.lastMaintDate !=''">
-				and last_maint_date=#{employee.lastMaintDate}
+				and e.last_maint_date=#{employee.lastMaintDate}
 			</if>
 			<if test="employee.empPwd != null and employee.empPwd !=''">
-				and c_emp_pwd=#{employee.empPwd}
+				and e.c_emp_pwd=#{employee.empPwd}
 			</if>
 			<if test="employee.accStatus != null and employee.accStatus !=''">
-				and c_acc_status=#{employee.accStatus}
+				and e.c_acc_status=#{employee.accStatus}
 			</if>
 			<if test="employee.onlineFlag != null and employee.onlineFlag !=''">
-				and c_online_flag=#{employee.onlineFlag}
+				and e.c_online_flag=#{employee.onlineFlag}
 			</if>
 			<if test="employee.annulReason != null and employee.annulReason !=''">
-				and c_annul_reason=#{employee.annulReason}
+				and e.c_annul_reason=#{employee.annulReason}
+			</if>
+			<if test="employee.employeeId != null and employee.employeeId !=''">
+				and e.c_employeeid=#{employee.employeeId}
 			</if>
 		</where>
+		order by e.c_employeeid
+	</select>
+	
+	<select id="findAllRoles" resultMap="RoleMap">
+		select
+		r.ROLE_ID,r.ROLE_CODE,r.ROLE_NAME,r.CREATED_DATE,r.UPDATED_DATE,r.ROLE_STS
+		from ocrm_role r 
+		where r.ROLE_STS='1'
+	</select>
+	
+	<delete id="deleteRolesByUserId">
+		delete from ocrm_employee_role where EMPLOYEE_ID = #{employeeId}
+	</delete>
+	
+	<insert id="addRolesByUserId">
+		insert into  ocrm_employee_role (EMPLOYEE_ID,ROLE_ID) values(#{employeeId},#{roleId})
+	</insert>
+	
+	
+	<select id="findMenusByRoleId" parameterType="int" resultType="com.boc.wms.menu.domain.entity.MenuEntity">
+		select
+		m.MENU_ID as menuId,
+		m.MENU_NAME as menuName,
+		m.MENU_URL as menuUrl,
+		m.VALID as valid
+		from  ocrm_role_menu om join ocrm_menu m on om.MENU_ID=m.MENU_ID
+		where m.VALID='1' and om.ROLE_ID=#{roleId}
 	</select>
 
 

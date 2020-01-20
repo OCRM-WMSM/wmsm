@@ -3,6 +3,7 @@ package com.boc.wms.user.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.boc.wms.menu.domain.entity.MenuEntity;
 import com.boc.wms.user.domain.Employee;
 import com.boc.wms.user.domain.Role;
 import org.apache.ibatis.annotations.Mapper;
@@ -53,5 +54,27 @@ public interface UserMapper extends BaseMapper<Employee> {
 	 * @return
 	 */
 	Page<Employee> selectUserPageList(Page<Employee> page, @Param("employee") Employee user);
+	/**
+	 * 查询所有角色
+	 * @return
+	 */
+	public List<Role> findAllRoles();
+	/**
+	 * 删除用户角色
+	 * @return
+	 */
+	public void deleteRolesByUserId(String employeeId);
+	/**
+	 * 增加用户角色
+	 * @param employeeId
+	 * @param roleId
+	 */
+	public void addRolesByUserId(@Param("employeeId")String employeeId,@Param("roleId")int roleId);
+	/**
+	 * 根据角色查询菜单
+	 * @param roleId
+	 * @return
+	 */
+	public List<MenuEntity> findMenusByRoleId(int roleId);
 
 }

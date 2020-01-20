@@ -37,6 +37,12 @@ public class CustomerUserDetailService implements UserDetailsService {
 		//查询角色
 		List<Role> roles=userService.findRolesByUserId(username);
 		user.setRoles(roles);
+		//目前角色暂时选择一个 TODO
+		Role role=new Role();
+		if(roles.size()>=1) {
+			role=roles.get(0);
+		}
+		user.setCurrentRole(role);
 		return new AuthUser(user);
 	}
 

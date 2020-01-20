@@ -1,10 +1,17 @@
 package com.boc.wms.blacklist.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.boc.api.ApiResult;
 import com.boc.api.ApiResultCode;
 import com.boc.exception.BusException;
 import com.boc.util.FtpUtil;
 import com.boc.util.ftpConfig.FileServerFtpConfiger;
+import com.boc.wms.blacklist.domain.BlacklistStat;
+import com.boc.wms.blacklist.service.BlacklistService;
+
+import io.swagger.annotations.ApiOperation;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +44,9 @@ public class BlacklistController {
 	 */
 	@Autowired
 	private FileServerFtpConfiger fileServerFtpConfiger;
+	
+	@Autowired
+	private BlacklistService blacklistService;
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -115,6 +125,20 @@ public class BlacklistController {
 			}
 		}
 
+	}
+
+	@RequestMapping("/getBlackListHistory")
+	@ApiOperation(value = "查询黑名单上传历史记录")
+	public Object getUserList( String jsonUser,
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+		BlacklistStat e = JSONObject.parseObject(jsonUser, BlacklistStat.class);
+		if(e==null) {
+			e=new BlacklistStat();
+		}
+		Page<BlacklistStat> page = new Page<>(currentPage, pageSize);
+		page = blacklistService.selectBlacklistStatePageList(page, e);
+		return page;
 	}
 
 }
