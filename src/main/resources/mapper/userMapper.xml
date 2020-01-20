@@ -25,6 +25,7 @@
 		<result property="onlineFlag" column="c_online_flag" />
 		<result property="annulReason" column="c_annul_reason" />
 		<result property="orgLvl" column="ITL_BCH_LVL" />
+		<result property="provCode" column="LVL_1_BCH_IDN" />
 	</resultMap>
 
 	<resultMap id="RoleMap" type="com.boc.wms.user.domain.Role">
@@ -55,7 +56,8 @@
 		e.c_acc_status,
 		e.c_online_flag,
 		e.c_annul_reason,
-		d.ITL_BCH_LVL
+		d.ITL_BCH_LVL,
+		d.LVL_1_BCH_IDN
 		from EHR_INF_EMPLOYEE e join DW_BOC_BCH_LVL d on e.C_ORGCODE=d.ITL_BCH_IDN
 		where c_employeeid=#{username}
 	</select>
@@ -157,7 +159,8 @@
 		e.c_acc_status,
 		e.c_online_flag,
 		c_annul_reason,
-		d.ITL_BCH_LVL
+		d.ITL_BCH_LVL,
+		d.LVL_1_BCH_IDN
 		from EHR_INF_EMPLOYEE e join DW_BOC_BCH_LVL d on e.C_ORGCODE=d.ITL_BCH_IDN
 		<where>
 			<if test="employee.name != null and employee.name !=''">

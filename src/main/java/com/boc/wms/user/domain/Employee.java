@@ -29,9 +29,11 @@ public class Employee {
 	private String accStatus;// 账户状态 0注销 1正常
 	private String onlineFlag;// 登陆状态0 离线 1在线
 	private String annulReason;// 注销原因 1机构注销
-	private Role currentRole;//当前登录 角色
-	
-	private int orgLvl;//用户所在机构级别
+	private Role currentRole;// 当前登录 角色
+
+	private int orgLvl;// 用户所在机构级别
+
+	private String provCode;// 省行号
 
 	private List<Role> roles;// 角色
 
@@ -210,7 +212,15 @@ public class Employee {
 	public void setOrgLvl(int orgLvl) {
 		this.orgLvl = orgLvl;
 	}
-    
+
+	public String getProvCode() {
+		return provCode;
+	}
+
+	public void setProvCode(String provCode) {
+		this.provCode = provCode;
+	}
+	
 	
 
 }
