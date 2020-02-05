@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: wmsm
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: wq3643
+Implementation-Vendor-Id: com.boc
+Build-Jdk: 1.8.0_171
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/wmsm
+Created-By: Maven Integration for Eclipse
+
